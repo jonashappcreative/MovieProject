@@ -2,6 +2,7 @@ import random
 import statistics
 import movie_storage
 from web_generator import write_html
+from storage_json import StorageJson
 
 # used to reload the module each time it was used in menu
 import importlib
@@ -68,29 +69,6 @@ def list_movies():
 
     for movie, details in movies.items():
         print(f"{movie}: {details['rating']}")
-
-
-def add_movie():
-    """
-    Replaced by add_movie_api()
-    :return:
-    """
-    # Get the data from the JSON file
-    movies = movie_storage.open_movies()
-
-    new_movie = input("Enter New Film Name: ")
-
-    if new_movie in movies.keys():
-        print("This movie already exists! Did you want to update instead?")
-        return
-
-    rating = float(input("Enter new movie rating (0-10): "))
-    year = int(input("Enter the movie's year: "))
-
-    # Add the movie and save the data to the JSON file
-    movie_storage.add_movie_to_database(new_movie, rating, year)
-
-    print(f"Movie {new_movie} successfully added")
 
 
 def add_movie_api():
@@ -255,6 +233,8 @@ def execute_function(choice, movies):
 
 
 def main():
+
+    Database1 = StorageJson("movie_storage_database.json")
 
     movies = movie_storage.open_movies()
     initial_welcome()
