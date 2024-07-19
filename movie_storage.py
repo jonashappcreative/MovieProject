@@ -24,6 +24,7 @@ def open_movies():
     }
     """
 
+    print("OPENED WRONG FILEPATH HERE")
     FILE_PATH = "movie_storage_database.json"
 
     with open(FILE_PATH, "r") as fileobj:
@@ -39,7 +40,7 @@ def save_movies(movies):
 
 def add_movie_to_database(new_movie, rating, year):
     """
-    Adds a movie to the movies database.
+    Adds a movie to the movie database.
     Loads the information from the JSON file, add the movie,
     and saves it. The function doesn't need to validate the input.
     """
@@ -66,7 +67,7 @@ def add_movie_by_api(search_title):
 
 def delete_movie_from_database(movie_to_delete):
     """
-    Deletes a movie from the movies database.
+    Deletes a movie from the movie database.
     Loads the information from the JSON file, deletes the movie,
     and saves it. The function doesn't need to validate the input.
 
@@ -79,7 +80,7 @@ def delete_movie_from_database(movie_to_delete):
 
 def update_movie(movie_to_update):
     """
-    Updates a movie from the movies database.
+    Updates a movie from the movie database.
     Loads the information from the JSON file, updates the movie,
     and saves it. The function doesn't need to validate the input.
     """

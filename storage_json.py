@@ -27,7 +27,8 @@ class StorageJson(IStorage):
 
         with open(self.file_path, "w") as fileobj:
             json.dump(movies, fileobj, indent=4)
-        importlib.reload(json)
+        # Disabled for debugging
+        # importlib.reload(json)
 
     def _list_movies(self):
 
@@ -65,14 +66,21 @@ class StorageJson(IStorage):
 
         print(f"Movie {title} successfully added")
 
-    def _delete_movie(self, title):
+    def _delete_movie(self):
         """
         Deletes a movie from the movies database.
         Loads the information from the JSON file, deletes the movie,
         and saves it. The function doesn't need to validate the input.
         """
         movies = self._open_movies()
-        del movies[title]
+        movie_to_delete = input("Enter movie name to delete: ")
+
+        if movie_to_delete in movies:
+            del movies[movie_to_delete]
+            print(f"Movie {movie_to_delete} successfully deleted")
+        else:
+            print(f"Movie {movie_to_delete} not in movies")
+
         self._save_movies(movies)
 
     def _update_movie(self, title, rating):

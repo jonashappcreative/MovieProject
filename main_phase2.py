@@ -194,50 +194,78 @@ def generate_website(movies):
     write_html(movies)
 
 
-def execute_function(choice, movies):
+def choose_user_database():
+
+    users = ["user1", "user2", "user3"]
+
+    print("Please choose the user profile for the Movie App")
+    print(f"Available users: {users}")
+    user = input("Please enter username: ")
+
+    return user
+
+
+def execute_function(choice, storage):
     if choice == 0:
         print("Bye")
         return False
     elif choice == 1:
         print("\nList Of Movies:")
-        return list_movies()
+        return storage._list_movies()
     elif choice == 2:
         print("\nAdd Movie:")
-        return add_movie_api()
+        return storage._add_movie()
     elif choice == 3:
         print("\nDelete Movie:")
-        return delete_movie(movies)
+        return storage._delete_movie()
     elif choice == 4:
         print("\nUpdate Movie:")
-        return update_movie_main()
+        return storage._update_movie_main()
     elif choice == 5:
-        movies = movie_storage.open_movies()  # Reload data
         print("\nStatistics:")
+        movies = storage._open_movies()
         return stats(movies)
     elif choice == 6:
         print("\nRandom Movie:")
-        movies = movie_storage.open_movies()  # Reload data
+        movies = storage._open_movies()        # Reload data
         return random_movie(movies)
     elif choice == 7:
         print("\nSearch Movie:")
-        movies = movie_storage.open_movies()  # Reload data
+        movies = storage._open_movies()  # Reload data
         return search_movie(movies)
     elif choice == 8:
-        movies = movie_storage.open_movies()  # Reload data before sorting
+        movies = storage._open_movies()  # Reload data before sorting
         print("\nMovies Sorted By Rating:")
         return movies_sorted_by_rating(movies)
     elif choice == 9:
-        movies = movie_storage.open_movies()  # Reload data before sorting
+        movies = storage._open_movies()  # Reload data before sorting
         generate_website(movies)
         print("\nWebsite was generated successfully.")
 
 
 def main():
 
-    Database1 = StorageJson("movie_storage_database.json")
+    user1 = StorageJson("movie_storage_database.json")
+    user2 = StorageJson("user2.json")
+    user3 = StorageJson("user3.json")
 
-    movies = movie_storage.open_movies()
     initial_welcome()
+    user = choose_user_database()
+
+    if user == "user1":
+        print("You Choose User 1")
+        user = user1
+
+    elif user == "user2":
+        print("You Choose User 2")
+        user = user2
+
+    elif user == "user3":
+        print("You Choose User 3")
+        user = user3
+
+    # Asks the user for which user (or database) to select
+    # movie_storage = choose_user_database()
 
     running = True
     while running:
@@ -251,7 +279,7 @@ def main():
             print("Bye!")
             quit()
 
-        execute_function(choice, movies)
+        execute_function(choice, storage=user)
 
         try:
             continue_input = input("\nPress 'Enter' to continue or 'Q' to quit: ")
@@ -261,6 +289,7 @@ def main():
         if continue_input.lower() == 'q':
             break
         elif continue_input:
+            print("EXECUTED")
             movies = movie_storage.open_movies()  # Ensure fresh data after any operation
 
     print("You Quit")
