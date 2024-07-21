@@ -1,10 +1,6 @@
 from istorage import IStorage
 import json
-import importlib
 import api_testing
-###
-# import movie_storage
-# from main_phase2 import add_movie_api
 
 
 class StorageJson(IStorage):
@@ -38,11 +34,12 @@ class StorageJson(IStorage):
         for movie, details in movies.items():
             print(f"{movie}: {details['rating']}")
 
-    def _add_movie(self):
+    def _add_movie(self, **kwargs):
         """
-            Adds a movie to the movies database.
+            Adds a movie to the movie's database.
             Loads the information from the JSON file, add the movie,
             and saves it. The function doesn't need to validate the input.
+            :param **kwargs:
             """
         # Get the data from the JSON file
         movies = self._open_movies()
@@ -68,7 +65,7 @@ class StorageJson(IStorage):
 
     def _delete_movie(self):
         """
-        Deletes a movie from the movies database.
+        Deletes a movie from the movie's database.
         Loads the information from the JSON file, deletes the movie,
         and saves it. The function doesn't need to validate the input.
         """

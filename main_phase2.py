@@ -245,6 +245,9 @@ def execute_function(choice, storage):
 
 def main():
 
+    # This somehow needs to be automated and flexible enough
+    # to have users added automatically if not in list yet
+
     user1 = StorageJson("movie_storage_database.json")
     user2 = StorageJson("user2.json")
     user3 = StorageJson("user3.json")
