@@ -34,7 +34,7 @@ def process_data(movies):
             link = "N/A"
 
         replace_html += serialize_movie(title, year, link)
-        print(title, year, link)
+        # DEBUG print(title, year, link)
 
     return replace_html
 

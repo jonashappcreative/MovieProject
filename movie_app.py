@@ -1,19 +1,11 @@
 import statistics
+import random
+from web_generator import write_html
 
 
 class MovieApp:
     def __init__(self, storage):
         self._storage = storage
-
-    def _command_list_movies(self):
-        movies = self._storage._list_movies()
-        ...
-
-    def _command_movie_stats(self):
-        pass
-
-    def _generate_website(self):
-        pass
 
     def _print_menu(self):
 
@@ -31,7 +23,6 @@ class MovieApp:
             "9. Generate Website\n"
         )
 
-
     def _get_user_choice(self):
 
         choice = -1
@@ -42,7 +33,6 @@ class MovieApp:
                 print("Not a valid option. Please try again.")
 
         return choice
-
 
     def _sort_dict_by_value_ranking(self):
         movies = self._storage._open_movies()
@@ -98,6 +88,26 @@ class MovieApp:
         print(f"Best movie: {best}")
         print(f"Worst movie: {worst}")
 
+    def _random_movie(self):
+        movies = self._storage._open_movies()  # Reload data
+        movie = random.choice(list(movies.keys()))
+        print(f"Your movie for tonight: {movie}, it's rated {movies[movie]['rating']}")
+
+    def _search_movie(self):
+        movies = self._storage._open_movies()  # Reload data
+        search_for = str(input("Enter part of movie name: "))
+
+        for movie in movies:
+            if search_for.lower() in movie.lower():
+                print(movie)
+
+    def _movies_sorted_by_rating(self):
+        movies = self._storage._open_movies()
+        ranking = self._sort_dict_by_value_ranking()
+
+        for movie, rating in ranking:
+            print(f"{movie}: {movies[movie]['rating']}")
+
     def _execute_user_choice(self, choice):
 
         if choice == 0:
@@ -118,6 +128,19 @@ class MovieApp:
         elif choice == 5:
             print("\nStatistics:")
             return self._stats()
+        elif choice == 6:
+            print("\nRandom Movie:")
+            return self._random_movie()
+        elif choice == 7:
+            print("\nSearch Movie:")
+            return self._search_movie()
+        elif choice == 8:
+            print("\nMovies Sorted By Rating:")
+            return self._movies_sorted_by_rating()
+        elif choice == 9:
+            movies = self._storage._open_movies()
+            write_html(movies)
+            print("\nWebsite was generated successfully.")
 
     def _run(self):
         self._print_menu()

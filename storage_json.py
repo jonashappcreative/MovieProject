@@ -19,13 +19,6 @@ class StorageJson(IStorage):
             movies = json.load(fileobj)
             return movies
 
-    def _save_movies(self, movies):
-
-        with open(self.file_path, "w") as fileobj:
-            json.dump(movies, fileobj, indent=4)
-        # Disabled for debugging
-        # importlib.reload(json)
-
     def _list_movies(self):
 
         movies = self._open_movies()
@@ -33,6 +26,11 @@ class StorageJson(IStorage):
 
         for movie, details in movies.items():
             print(f"{movie}: {details['rating']}")
+
+    def _save_movies(self, movies):
+
+        with open(self.file_path, "w") as fileobj:
+            json.dump(movies, fileobj, indent=4)
 
     def _add_movie(self, **kwargs):
         """
