@@ -58,5 +58,15 @@
         "rating": "6.4",
         "year": "2015",
         "poster image url": "https://m.media-amazon.com/images/M/MV5BMTUwNjcxNzAwOF5BMl5BanBnXkFtZTgwNzEzMzIzNDE@._V1_SX300.jpg"
+    },
+    "American Horror Story": {
+        "rating": "8.0",
+        "year": "2011\u2013",
+        "poster image url": "https://m.media-amazon.com/images/M/MV5BM2ZlMjQ2ZmEtODEwYi00ZTk5LThmY2UtYWFiNzE3MjZjNzQyXkEyXkFqcGdeQXVyMTU1ODIwMTM1._V1_SX300.jpg"
+    },
+    "Darling New": {
+        "rating": "9",
+        "year": "1965",
+        "poster image url": "https://m.media-amazon.com/images/M/MV5BNzFmNWUxY2QtNjZkOC00MWY0LTliYmQtZjM4NjdlMTkxOWE5XkEyXkFqcGdeQXVyMTUzMDUzNTI3._V1_SX300.jpg"
     }
 }

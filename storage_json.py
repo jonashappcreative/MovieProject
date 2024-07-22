@@ -80,5 +80,15 @@ class StorageJson(IStorage):
 
         self._save_movies(movies)
 
-    def _update_movie(self, title, rating):
-        pass
+    def _update_movie(self):
+        movie_to_delete = input("Enter movie name to update: ")
+        custom_title = input("Enter your new title: ")
+        custom_rating = input("Enter your new rating: ")
+        movies = self._open_movies()
+
+        movies[custom_title] = movies[movie_to_delete]
+        movies[custom_title]["rating"] = custom_rating
+
+        del movies[movie_to_delete]
+
+        self._save_movies(movies)

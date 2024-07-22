@@ -12,36 +12,6 @@ import importlib
 # histogram
 
 
-def initial_welcome():
-    print("********** My Movies Database **********")
-
-
-def menu_choice():
-    # need to fix: write in multiple lines to keep line under 140 chars
-    print(
-        "\nMenu:\n"
-        "0. Exit\n"
-        "1. List movies\n"
-        "2. Add movie\n"
-        "3. Delete movie\n"
-        "4. Update movie\n"
-        "5. Stats\n"
-        "6. Random movie\n"
-        "7. Search movie\n"
-        "8. Movies sorted by rating\n"
-        "9. Generate Website\n"
-    )
-
-    choice = -1
-    while choice not in range(0, 10):
-        choice = int(input("Enter choice (0-9): "))
-
-        if choice not in range(0, 10):
-            print("Not a valid option. Please try again.")
-
-    return choice
-
-
 def list_movies():
     """
     Returns a dictionary of dictionaries that
