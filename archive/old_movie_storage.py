@@ -1,7 +1,5 @@
 import importlib
 import json
-import api_testing
-from storage_json import StorageJson
 
 
 def open_movies():
@@ -25,7 +23,7 @@ def open_movies():
     """
 
     print("OPENED WRONG FILEPATH HERE")
-    FILE_PATH = "movie_storage_database.json"
+    FILE_PATH = "../movie_storage_database.json"
 
     with open(FILE_PATH, "r") as fileobj:
         data = json.load(fileobj)
@@ -33,7 +31,7 @@ def open_movies():
 
 
 def save_movies(movies):
-    with open("movie_storage_database.json", "w") as fileobj:
+    with open("../movie_storage_database.json", "w") as fileobj:
         json.dump(movies, fileobj, indent=4)
     importlib.reload(json)
 
@@ -49,20 +47,7 @@ def add_movie_to_database(new_movie, rating, year):
     save_movies(movies)
 
 
-def add_movie_by_api(search_title):
 
-    movies = open_movies()
-
-    try:
-        title, year, rating, poster_image_url = api_testing.search_film(search_title)
-
-    # Exits this part of the Code when a None is returned by API, Warning was already Printed to user
-    except TypeError:
-        return
-
-    movies[title] = {"rating": rating, "year": year, "poster image url": poster_image_url}
-    print(f"Movie {title} successfully added")
-    save_movies(movies)
 
 
 def delete_movie_from_database(movie_to_delete):

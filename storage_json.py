@@ -1,6 +1,5 @@
 from istorage import IStorage
 import json
-import api_testing
 
 
 class StorageJson(IStorage):

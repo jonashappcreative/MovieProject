@@ -1,6 +1,6 @@
 import random
 import statistics
-import movie_storage
+import old_movie_storage
 from web_generator import write_html
 from storage_json import StorageJson
 
@@ -12,34 +12,6 @@ import importlib
 # histogram
 
 
-def initial_welcome():
-    print("********** My Movies Database **********")
-
-
-def menu_choice():
-    # need to fix: write in multiple lines to keep line under 140 chars
-    print(
-        "\nMenu:\n"
-        "0. Exit\n"
-        "1. List movies\n"
-        "2. Add movie\n"
-        "3. Delete movie\n"
-        "4. Update movie\n"
-        "5. Stats\n"
-        "6. Random movie\n"
-        "7. Search movie\n"
-        "8. Movies sorted by rating\n"
-        "9. Generate Website\n"
-    )
-
-    choice = -1
-    while choice not in range(0, 10):
-        choice = int(input("Enter choice (0-9): "))
-
-        if choice not in range(0, 10):
-            print("Not a valid option. Please try again.")
-
-    return choice
 
 
 def list_movies():
@@ -64,7 +36,7 @@ def list_movies():
     # data_storage =
     # Define which data storage should be used (which user, filetype)
 
-    movies = movie_storage.open_movies()
+    movies = self.movie_storage.open_movies()
     print(f"{len(movies)} movies in total")
 
     for movie, details in movies.items():
@@ -175,72 +147,13 @@ def random_movie(movies):
     print(f"Your movie for tonight: {movie}, it's rated {movies[movie]['rating']}")
 
 
-def search_movie(movies):
-    search_for = str(input("Enter part of movie name: "))
-
-    for movie in movies:
-        if search_for.lower() in movie.lower():
-            print(movie)
 
 
-def movies_sorted_by_rating(movies):
-    ranking = sort_dict_by_value_ranking(movies)
-
-    for movie, rating in ranking:
-        print(f"{movie}: {movies[movie]['rating']}")
 
 
-def generate_website(movies):
-    write_html(movies)
 
 
-def choose_user_database():
 
-    users = ["user1", "user2", "user3"]
-
-    print("Please choose the user profile for the Movie App")
-    print(f"Available users: {users}")
-    user = input("Please enter username: ")
-
-    return user
-
-
-def execute_function(choice, storage):
-    if choice == 0:
-        print("Bye")
-        return False
-    elif choice == 1:
-        print("\nList Of Movies:")
-        return storage._list_movies()
-    elif choice == 2:
-        print("\nAdd Movie:")
-        return storage._add_movie()
-    elif choice == 3:
-        print("\nDelete Movie:")
-        return storage._delete_movie()
-    elif choice == 4:
-        print("\nUpdate Movie:")
-        return storage._update_movie_main()
-    elif choice == 5:
-        print("\nStatistics:")
-        movies = storage._open_movies()
-        return stats(movies)
-    elif choice == 6:
-        print("\nRandom Movie:")
-        movies = storage._open_movies()        # Reload data
-        return random_movie(movies)
-    elif choice == 7:
-        print("\nSearch Movie:")
-        movies = storage._open_movies()  # Reload data
-        return search_movie(movies)
-    elif choice == 8:
-        movies = storage._open_movies()  # Reload data before sorting
-        print("\nMovies Sorted By Rating:")
-        return movies_sorted_by_rating(movies)
-    elif choice == 9:
-        movies = storage._open_movies()  # Reload data before sorting
-        generate_website(movies)
-        print("\nWebsite was generated successfully.")
 
 
 def main():
@@ -248,9 +161,9 @@ def main():
     # This somehow needs to be automated and flexible enough
     # to have users added automatically if not in list yet
 
-    user1 = StorageJson("movie_storage_database.json")
-    user2 = StorageJson("user2.json")
-    user3 = StorageJson("user3.json")
+    user1 = StorageJson("../movie_storage_database.json")
+    user2 = StorageJson("../user2.json")
+    user3 = StorageJson("../user3.json")
 
     initial_welcome()
     user = choose_user_database()
@@ -274,7 +187,7 @@ def main():
     while running:
 
         # Reloads the Module so the database refreshes
-        importlib.reload(movie_storage)
+        importlib.reload(old_movie_storage)
 
         choice = menu_choice()
 
