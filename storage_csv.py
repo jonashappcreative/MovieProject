@@ -1,6 +1,6 @@
 from istorage import IStorage
 import csv
-# import api_testing
+import api_testing
 
 
 class StorageCsv(IStorage):
@@ -34,10 +34,17 @@ class StorageCsv(IStorage):
         for movie, details in movies.items():
             print(f"{movie}: {details['rating']}")
 
-    def _save_movies(self):
+    def _save_movies(self, lines):
 
         with open(self.file_path, "w") as fileobj:
+            fileobj.writelines(lines)
+            fileobj.close()
 
+        '''
+        JSON EQUIVALENT:
+        with open(self.file_path, "w") as fileobj:
+        json.dump(movies, fileobj, indent=4)
+        '''
 
     def _add_movie(self):
         """
@@ -45,7 +52,35 @@ class StorageCsv(IStorage):
         Does not need any arguments as we are puling the movie data from the API anyway
         :return: None
         """
-        pass
+        movies = self._open_movies()
+        search_title = input("Enter New Film Name: ")
+
+        if search_title in movies:
+            print("This movie already exists! Did you want to update instead?")
+            return
+
+        try:
+            title, year, rating, poster_image_url = api_testing.search_film(search_title)
+
+        # Exits this part of the Code when a None is returned by API, Warning was already Printed to user
+        except TypeError:
+            print("Error! A Type Error Occurred!")
+            return
+
+        with open(self.file_path, "r") as fileobj:
+            lines = fileobj.readlines()
+
+        # Adds the new movie information to the CSV Database as New Line
+        new_line = title + "," + year + "," + rating + "," + poster_image_url + "\n"
+        lines.append(new_line)
+
+        self._save_movies(lines)
+        print(f"Movie {title} successfully added")
+
+        return
+
+
+
 
     def _delete_movie(self):
         """

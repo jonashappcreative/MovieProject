@@ -7,6 +7,15 @@ class MovieApp:
     def __init__(self, storage):
         self._storage = storage
 
+    def _choose_user(self):
+        users = ["user1", "user2", "user3", "user4"]
+
+        print("Please choose the user profile for the Movie App")
+        print(f"Available users: {users}")
+        user = input("Please enter username: ")
+
+        return user
+
     def _print_menu(self):
 
         print(
