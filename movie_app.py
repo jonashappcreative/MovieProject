@@ -1,20 +1,12 @@
-import statistics
 import random
+import statistics
+
 from web_generator import write_html
 
 
 class MovieApp:
     def __init__(self, storage):
         self._storage = storage
-
-    def _choose_user(self):
-        users = ["user1", "user2", "user3", "user4"]
-
-        print("Please choose the user profile for the Movie App")
-        print(f"Available users: {users}")
-        user = input("Please enter username: ")
-
-        return user
 
     def _print_menu(self):
 
@@ -33,6 +25,10 @@ class MovieApp:
         )
 
     def _get_user_choice(self):
+        """
+        Asks the user, which function of the menu he'd like to do next
+        :return: Int with choice number between 0-9
+        """
 
         choice = -1
         while choice not in range(0, 10):
@@ -44,6 +40,10 @@ class MovieApp:
         return choice
 
     def _sort_dict_by_value_ranking(self):
+        """
+        Sorts the Dict by rating.
+        :return: A sorted list of movies and ranking of rating from best to worst.
+        """
         movies = self._storage._open_movies()
         ranking = sorted(movies.items(), key=lambda item: item[1]['rating'], reverse=True)
         # Debug: print(ranking)
@@ -51,9 +51,10 @@ class MovieApp:
 
     def _calc_statistics(self, movies):
         """
-
-        :param movies: All the Movies in the given List
-        :return:
+        Takes care of the mathmatics of the statistical analysis of the movies dict.
+        :param movies: All the Movies in the given list as a dict
+        :return: Calculation Results for: average film rating, median film rating,
+        best_movies_string (one or more best movies), worst_movies_string (one or more worst movies)
         """
 
         list_of_ratings = []
@@ -88,6 +89,11 @@ class MovieApp:
         return average, median, best_movies_string, worst_movies_string
 
     def _stats(self):
+        """
+        The function is called when the statistics need to be displayed.
+        Any calculations will be done in the _calc_statistics.
+        :return: Displays the statistics of the movies in the data file.
+        """
         movies = self._storage._open_movies()
         average, median, best, worst = self._calc_statistics(movies)
 
@@ -98,19 +104,34 @@ class MovieApp:
         print(f"Worst movie: {worst}")
 
     def _random_movie(self):
+        """
+        Gets and prints a random movie from the users database.
+        :return: Prints the result.
+        """
         movies = self._storage._open_movies()  # Reload data
         movie = random.choice(list(movies.keys()))
         print(f"Your movie for tonight: {movie}, it's rated {movies[movie]['rating']}")
 
     def _search_movie(self):
+        """
+        Lets the user search for a part of a movie title and see if it is in the data yet.
+        :return: Nothing. Prints the next best movie if available.
+        """
         movies = self._storage._open_movies()  # Reload data
         search_for = str(input("Enter part of movie name: "))
 
         for movie in movies:
             if search_for.lower() in movie.lower():
                 print(movie)
+            else:
+                print("Didn't find your requested title. Want to add it instead?")
 
     def _movies_sorted_by_rating(self):
+        """
+        Prints the movies sorted by ranking.
+        Ranking is calculated and sorted in _sort_dict_by_value_ranking.
+        :return: Nothing, Prints the Movies.
+        """
         movies = self._storage._open_movies()
         ranking = self._sort_dict_by_value_ranking()
 
@@ -118,6 +139,11 @@ class MovieApp:
             print(f"{movie}: {movies[movie]['rating']}")
 
     def _execute_user_choice(self, choice):
+        """
+        Gets the user choice from inside the function _run and executes the specific command.
+        :param choice: A int between 0-9 that indicated the users next requested function
+        :return: the executed function in which everything of that commands happens.
+        """
 
         if choice == 0:
             print("See you next time!")
@@ -152,6 +178,11 @@ class MovieApp:
             print("\nWebsite was generated successfully.")
 
     def _run(self):
+        """
+        Runs the Movie App by getting the user choice and passing the command to the required functions.
+        :return: A bool that indicated if the users wants to keep running the app or exit it.
+        """
+
         self._print_menu()
         choice = self._get_user_choice()
         self._execute_user_choice(choice)

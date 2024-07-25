@@ -1,6 +1,7 @@
-from istorage import IStorage
 import json
+
 import api_testing
+from istorage import IStorage
 
 
 class StorageJson(IStorage):
@@ -10,6 +11,7 @@ class StorageJson(IStorage):
     and abstract methods make sure everything gets used
 
     """
+
     def __init__(self, file_path):
         self.file_path = file_path
 

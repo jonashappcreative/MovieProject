@@ -2,7 +2,6 @@ import os
 
 
 def serialize_movie(title, year, link):
-
     output_html = ''
 
     output_html += f'<li>\n'
@@ -17,7 +16,6 @@ def serialize_movie(title, year, link):
 
 
 def process_data(movies):
-
     replace_html = ""
 
     for movie in movies.keys():
@@ -40,7 +38,6 @@ def process_data(movies):
 
 
 def write_html(movies):
-
     with open("_static/index_template.html", "r") as html_file:
         template_content = html_file.read()
 
