@@ -6,7 +6,7 @@ from storage_json import StorageJson
 def choose_user():
     """
     A function that covers the initial choice of which user is using the Movie App.
-    The users are currently hard coded into a list of users, but can be later saved in a users database.
+    The users are currently hard coded into a list of users, but can be later saved in a user's database.
     Each user is currently connected to its databases filepath.
 
     :return: The Object of the Storage Type and Filepath that will be used in the MovieApp.
@@ -42,7 +42,7 @@ def choose_user():
 
 def main():
     """
-    Runs the MovieApp using the Storage Item choosen in the prior function.
+    Runs the MovieApp using the Storage Item chosen in the prior function.
     Executed until run is stopped by the user by the bool running_choice.
     :return: Nothing
     """
