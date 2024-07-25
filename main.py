@@ -19,23 +19,23 @@ def choose_user():
 
     if user == "user1":
         print("You choose User 1")
-        storage = StorageJson("movie_storage_database.json")
+        storage = StorageJson("Data/movie_storage_database.json")
 
     elif user == "user2":
         print("You choose User 2")
-        storage = StorageJson("user2.json")
+        storage = StorageJson("Data/user2.json")
 
     elif user == "user3":
         print("You choose User 3")
-        storage = StorageJson("user3.json")
+        storage = StorageJson("Data/user3.json")
 
     elif user == "user4":
         print("You choose User 4")
-        storage = StorageCsv("movie_storage_database.csv")
+        storage = StorageCsv("Data/movie_storage_database.csv")
 
     else:
         print("You choose User 1 as default")
-        storage = StorageJson("movie_storage_database.json")
+        storage = StorageJson("Data/movie_storage_database.json")
 
     return storage
 
