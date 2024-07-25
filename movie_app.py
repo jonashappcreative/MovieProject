@@ -155,3 +155,9 @@ class MovieApp:
         self._print_menu()
         choice = self._get_user_choice()
         self._execute_user_choice(choice)
+
+        if choice == 0:
+            return False
+        else:
+            input("\nPress Enter to continue...")
+            return True

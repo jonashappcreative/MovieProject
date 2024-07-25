@@ -33,7 +33,11 @@ def main():
 
     storage = choose_user()
     movie_app = MovieApp(storage)
-    movie_app._run()
+
+    running_status = True
+
+    while running_status:
+        running_status = movie_app._run()
 
 
 if __name__ == "__main__":
