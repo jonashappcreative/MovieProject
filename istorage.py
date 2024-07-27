@@ -12,6 +12,10 @@ class IStorage(ABC):
 
     @abstractmethod
     def _list_movies(self):
+        """
+
+        :return:
+        """
         pass
 
     @abstractmethod

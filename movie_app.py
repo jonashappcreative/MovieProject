@@ -120,11 +120,19 @@ class MovieApp:
         movies = self._storage._open_movies()  # Reload data
         search_for = str(input("Enter part of movie name: "))
 
+        counter_movies_found = 0
         for movie in movies:
             if search_for.lower() in movie.lower():
-                print(movie)
-            else:
-                print("Didn't find your requested title. Want to add it instead?")
+                counter_movies_found += 1
+
+        if counter_movies_found > 0:
+            print(f"\nFound {counter_movies_found} possible movies in total:\n")
+            for movie in movies:
+                if search_for.lower() in movie.lower():
+                    print(movie)
+
+        if counter_movies_found == 0:
+            print("Didn't find your requested title. Want to add it instead?")
 
     def _movies_sorted_by_rating(self):
         """
