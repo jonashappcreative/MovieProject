@@ -1,5 +1,7 @@
-from istorage import IStorage
 import json
+
+import api_testing
+from istorage import IStorage
 
 
 class StorageJson(IStorage):
@@ -9,6 +11,7 @@ class StorageJson(IStorage):
     and abstract methods make sure everything gets used
 
     """
+
     def __init__(self, file_path):
         self.file_path = file_path
 
@@ -18,13 +21,6 @@ class StorageJson(IStorage):
             movies = json.load(fileobj)
             return movies
 
-    def _save_movies(self, movies):
-
-        with open(self.file_path, "w") as fileobj:
-            json.dump(movies, fileobj, indent=4)
-        # Disabled for debugging
-        # importlib.reload(json)
-
     def _list_movies(self):
 
         movies = self._open_movies()
@@ -32,6 +28,11 @@ class StorageJson(IStorage):
 
         for movie, details in movies.items():
             print(f"{movie}: {details['rating']}")
+
+    def _save_movies(self, movies):
+
+        with open(self.file_path, "w") as fileobj:
+            json.dump(movies, fileobj, indent=4)
 
     def _add_movie(self, **kwargs):
         """
@@ -79,5 +80,15 @@ class StorageJson(IStorage):
 
         self._save_movies(movies)
 
-    def _update_movie(self, title, rating):
-        pass
+    def _update_movie(self):
+        movie_to_delete = input("Enter movie name to update: ")
+        custom_title = input("Enter your new title: ")
+        custom_rating = input("Enter your new rating: ")
+        movies = self._open_movies()
+
+        movies[custom_title] = movies[movie_to_delete]
+        movies[custom_title]["rating"] = custom_rating
+
+        del movies[movie_to_delete]
+
+        self._save_movies(movies)

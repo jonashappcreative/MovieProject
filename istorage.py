@@ -12,6 +12,10 @@ class IStorage(ABC):
 
     @abstractmethod
     def _list_movies(self):
+        """
+
+        :return:
+        """
         pass
 
     @abstractmethod
@@ -33,5 +37,5 @@ class IStorage(ABC):
         pass
 
     @abstractmethod
-    def _update_movie(self, title, rating):
+    def _update_movie(self):
         pass
